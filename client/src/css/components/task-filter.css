@@ -1,0 +1,11 @@
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-controls select {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
