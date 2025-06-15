@@ -28,8 +28,8 @@ A full-stack task management application built with the MERN stack (MongoDB, Exp
 1. Clone the repository
 ~
 bash
-git clone https://github.com/yourusername/task-manager.git
-cd task-manager
+git clone https://github.com/dunkel68/Task-Manager.git
+cd Task-Manager
 ~
 
 2. Set up the backend
