@@ -14,12 +14,13 @@ const TaskSchema = new mongoose.Schema({
   },
   dueDate: {
     type: Date,
-    required: [true, 'Please provide a due date'],
     validate: {
       validator: function(v) {
-        return v instanceof Date && !isNaN(v);
+        // Reject default/unset dates
+        return v instanceof Date && 
+              v.getTime() !== new Date(0).getTime();
       },
-      message: props => `${props.value} is not a valid date!`
+      message: 'Please provide a valid due date'
     }
   },
   priority: {

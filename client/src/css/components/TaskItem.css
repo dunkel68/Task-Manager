@@ -102,3 +102,103 @@
 .delete-button:hover {
   color: #e74c3c;
 }
+
+.task-main-content {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.task-details {
+  flex: 1;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.task-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.task-status {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.task-dates {
+  display: flex;
+  gap: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fa-check-circle {
+  color: #2ecc71;
+}
+
+.fa-clock {
+  color: #f39c12;
+}
+
+/* Add to TaskItem.css */
+.task-content-wrapper {
+  padding: 12px;
+  flex-grow: 1;
+}
+
+.task-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.task-description-section {
+  margin-bottom: 12px;
+}
+
+.task-description {
+  margin: 0;
+  color: #34495e;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.task-meta-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-dates {
+  display: flex;
+  gap: 15px;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.task-status .completed {
+  color: #2ecc71;
+}
+
+.task-status .pending {
+  color: #f39c12;
+}

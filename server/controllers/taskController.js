@@ -39,7 +39,11 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: task,
+    data: {
+      ...task._doc,
+      id: task._id,
+      _id: task._id
+    }
   });
 });
 

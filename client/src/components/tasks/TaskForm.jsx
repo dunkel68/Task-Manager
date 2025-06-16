@@ -26,9 +26,13 @@ const TaskForm = ({ onSubmit, initialData = {} }) => {
   };
 
   const validateDueDate = (dateString) => {
-  if (!dateString) return false;
-  return isValid(new Date(dateString)) || isValid(parseISO(dateString));
-};
+    if (!dateString) return false;
+    try {
+      return isValid(parseISO(dateString)) || isValid(new Date(dateString));
+    } catch {
+      return false;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -4,16 +4,19 @@ import TaskItem from './TaskItem';
 import '../../css/components/TaskList.css';
 import PropTypes from 'prop-types';
 
-const TaskList = ({ tasks, onEdit, onDelete, onToggle, loading }) => {
-  const { filter } = useTasks(); // Get current filter
+const TaskList = ({ onEdit, onDelete, onToggle }) => {
+  const { tasks, loading, filter } = useTasks();
   
-  const filteredTasks = tasks.filter(task => {
+  // Safely handle tasks array and filtering
+  const safeTasks = Array.isArray(tasks) ? tasks : [];
+  const filteredTasks = safeTasks.filter(task => {
+    if (!task) return false;
     if (filter === 'completed') return task.completed;
     if (filter === 'pending') return !task.completed;
     return true;
   });
-  
-  const safeTasks = Array.isArray(tasks) ? tasks : [];
+
+  // Loading state
   if (loading) {
     return (
       <div className="loading-container">
@@ -23,15 +26,12 @@ const TaskList = ({ tasks, onEdit, onDelete, onToggle, loading }) => {
     );
   }
 
+  // Empty states
   if (safeTasks.length === 0) {
-    return <div className="empty-state">No tasks have been created yet.</div>;
-  }
-
-  if (tasks.length === 0) {
     return (
       <div className="empty-state">
         <i className="fas fa-tasks"></i>
-        <p>No tasks found</p>
+        <p>No tasks have been created yet</p>
       </div>
     );
   }
@@ -41,23 +41,23 @@ const TaskList = ({ tasks, onEdit, onDelete, onToggle, loading }) => {
       <div className="empty-state">
         {filter === 'completed'
           ? 'No completed tasks'
-          : 'No pending tasks'}
+          : filter === 'pending'
+          ? 'No pending tasks'
+          : 'No tasks found'}
       </div>
     );
   }
 
+  // Render task list
   return (
     <div className="task-list">
       {filteredTasks.map(task => (
-        <TaskItem key={task._id} task={task} />
-      ))}
-      {tasks.map((task) => (
         <TaskItem
-          key={task._id}
+          key={task.id}  // Using the normalized id field
           task={task}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          onToggle={onToggle}
+          onEdit={() => onEdit(task)}
+          onDelete={() => onDelete(task.id)}
+          onToggle={() => onToggle(task.id)}
         />
       ))}
     </div>
@@ -65,19 +65,9 @@ const TaskList = ({ tasks, onEdit, onDelete, onToggle, loading }) => {
 };
 
 TaskList.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
-      dueDate: PropTypes.string,
-      priority: PropTypes.string
-    })
-  )
-};
-
-TaskList.defaultProps = {
-  tasks: []
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired
 };
 
 export default TaskList;
